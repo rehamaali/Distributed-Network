@@ -1,0 +1,4 @@
+#!/bin/sh
+cd `dirname $0`
+../src/deathlyhallows_sf2020 -n .:../src $*
+# for shared lib, use: opp_run -l ../src/deathlyhallows_sf2020 -n .:../src $*
