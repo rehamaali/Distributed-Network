@@ -63,7 +63,7 @@ void Node::handleMessage(cMessage *msg)
     isMeFinished = getUserMsg(myPayload);
 
     string frame = framming(myPayload);
-    MyMessage_Base msgToSent = new MyMessage_Base(frame.c_str());
+    MyMessage_Base *msgToSent = new MyMessage_Base(frame.c_str());
     msgToSent->setChecksum(getCheckSum(frame));
     msgToSent->setLastMessage(isMeFinished);
     msgToSent->setStartTransmission(startTransmission);
