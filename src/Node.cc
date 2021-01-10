@@ -30,7 +30,7 @@ void Node::handleMessage(cMessage *msg)
     {
         // TODO: Don't forget
         int type = atoi(msg->getName());
-//        EV << "selfType: " << type << endl;
+        EV << "selfType: " << type << endl;
         if(type == -2)   // ready_to_send
         {
             if(!isMeFinished  && currentBufCount < BUFCOUNT)
@@ -97,6 +97,7 @@ void Node::handleMessage(cMessage *msg)
         }
         case frameArrival:
         {
+            EV << "MsgType: " << recMsg->getMsgType() << endl;
             if(recMsg->getStartTransmission())
             {
                 int peer = msg->getArrivalGate()->getIndex();
@@ -105,14 +106,14 @@ void Node::handleMessage(cMessage *msg)
 
             if(isMeFinished)
             {
-                if(isSource && recMsg->getLastMessage())
+                if(isSource==1 && recMsg->getLastMessage())
                 {
                     EV << "to Master" << endl;
-                    isSource=0;
+                    isSource=2;
                     cMessage *msgToSent = new cMessage("");
                     send(msgToSent, "outs", gateSize("ins")-1);  // send to master
                 }
-                else
+                else if(!isSource)
                 {
                     sendMessage(1, 0, 0);    // send ack
                 }

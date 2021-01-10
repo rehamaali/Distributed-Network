@@ -49,7 +49,7 @@ class Node : public cSimpleModule
     vector<string> msgsVec;
     int nxtMsgIndex;            // TODO: To be initialized.
     bool isMeFinished;          // TODO: To be initialized.
-    bool isSource;
+    int isSource;
     bool noNAK;
 
     int ackExpected;
