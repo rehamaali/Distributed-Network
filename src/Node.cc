@@ -108,6 +108,7 @@ void Node::handleMessage(cMessage *msg)
                 if(isSource && recMsg->getLastMessage())
                 {
                     EV << "to Master" << endl;
+                    isSource=0;
                     cMessage *msgToSent = new cMessage("");
                     send(msgToSent, "outs", gateSize("ins")-1);  // send to master
                 }
