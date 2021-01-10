@@ -30,6 +30,7 @@ void Node::handleMessage(cMessage *msg)
     {
         // TODO: Don't forget
         int type = atoi(msg->getName());
+        EV << "selfType: " << type << endl;
         if(type == -2)   // ready_to_send
         {
             if(!isMeFinished  && currentBufCount < BUFCOUNT)
@@ -105,8 +106,9 @@ void Node::handleMessage(cMessage *msg)
             {
                 if(recMsg->getLastMessage())
                 {
+                    EV << "to Master" << endl;
                     cMessage *msgToSent = new cMessage("");
-                    send(msgToSent, "out", gateSize("ins")-1);  // send to master
+                    send(msgToSent, "outs", gateSize("ins")-1);  // send to master
                 }
                 else
                 {
@@ -298,12 +300,15 @@ void Node::addNoiseAndSend(MyMessage_Base *msg, int dest)
        else if (noiseType == 1)     //delay
         {
            double delay = exponential(1 / par("lambdaNode").doubleValue());
+           EV << "Delay Here" << endl;
            sendDelayed(msg,delay,"outs",dest);
         }
        else if (noiseType == 2)    // duplicate
         {
+           EV << "Duplicate" << endl;
            send(msg,"outs",dest);
-           send(msg,"outs",dest);
+           MyMessage_Base *msg2 = msg->dup();
+           send(msg2,"outs",dest);
         }
        else                        //loss
        {
