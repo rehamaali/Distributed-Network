@@ -13,6 +13,8 @@ void Master::initialize()
     nodesConnection.resize(freeNodes);
     for(auto& e:nodesConnection)
         e=-1;
+
+    srand(time(0));
 }
 
 void Master::handleMessage(cMessage *msg)
@@ -27,8 +29,6 @@ void Master::handleMessage(cMessage *msg)
     }
 
     int choose = rand() % 2;           // choose if it will choose two nodes or not.
-    EV<<choose;
-
 
     if(choose == 0 && freeNodes)                   //will choose
     {
@@ -39,11 +39,11 @@ void Master::handleMessage(cMessage *msg)
             rand_src = uniform(0, gateSize("outs"));
 
         } while(nodesConnection[rand_src] != -1);
-
+        EV << rand_src << endl;
         do { //Avoid sending to the same node
             rand_dest = uniform(0, gateSize("outs"));
         } while((nodesConnection[rand_dest] != -1) || (rand_dest == rand_src));   // to be modified (check that both nodes are free)
-
+        EV << rand_dest << endl;
         nodesConnection[rand_src] = rand_dest;
         nodesConnection[rand_dest] = rand_src;
         freeNodes -= 2;

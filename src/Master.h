@@ -17,6 +17,7 @@
 #define __DEATHLYHALLOWS_SF2020_MASTER_H_
 
 #include <omnetpp.h>
+#include <bits/stdc++.h>
 
 using namespace omnetpp;
 using namespace std;

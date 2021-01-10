@@ -184,6 +184,7 @@ MyMessage_Base::MyMessage_Base(const char *name, short kind) : ::omnetpp::cPacke
     this->checksum = 0;
     this->lastMessage = false;
     this->startTransmission = false;
+    this->ack = 0;
 }
 
 MyMessage_Base::MyMessage_Base(const MyMessage_Base& other) : ::omnetpp::cPacket(other)
@@ -211,6 +212,7 @@ void MyMessage_Base::copy(const MyMessage_Base& other)
     this->checksum = other.checksum;
     this->lastMessage = other.lastMessage;
     this->startTransmission = other.startTransmission;
+    this->ack = other.ack;
 }
 
 void MyMessage_Base::parsimPack(omnetpp::cCommBuffer *b) const
@@ -222,6 +224,7 @@ void MyMessage_Base::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->checksum);
     doParsimPacking(b,this->lastMessage);
     doParsimPacking(b,this->startTransmission);
+    doParsimPacking(b,this->ack);
 }
 
 void MyMessage_Base::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -233,6 +236,7 @@ void MyMessage_Base::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->checksum);
     doParsimUnpacking(b,this->lastMessage);
     doParsimUnpacking(b,this->startTransmission);
+    doParsimUnpacking(b,this->ack);
 }
 
 int MyMessage_Base::getSeqNum() const
@@ -293,6 +297,16 @@ bool MyMessage_Base::getStartTransmission() const
 void MyMessage_Base::setStartTransmission(bool startTransmission)
 {
     this->startTransmission = startTransmission;
+}
+
+int MyMessage_Base::getAck() const
+{
+    return this->ack;
+}
+
+void MyMessage_Base::setAck(int ack)
+{
+    this->ack = ack;
 }
 
 class MyMessageDescriptor : public omnetpp::cClassDescriptor
@@ -361,7 +375,7 @@ const char *MyMessageDescriptor::getProperty(const char *propertyname) const
 int MyMessageDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 6+basedesc->getFieldCount() : 6;
+    return basedesc ? 7+basedesc->getFieldCount() : 7;
 }
 
 unsigned int MyMessageDescriptor::getFieldTypeFlags(int field) const
@@ -379,8 +393,9 @@ unsigned int MyMessageDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,
         FD_ISEDITABLE,
         FD_ISEDITABLE,
+        FD_ISEDITABLE,
     };
-    return (field>=0 && field<6) ? fieldTypeFlags[field] : 0;
+    return (field>=0 && field<7) ? fieldTypeFlags[field] : 0;
 }
 
 const char *MyMessageDescriptor::getFieldName(int field) const
@@ -398,8 +413,9 @@ const char *MyMessageDescriptor::getFieldName(int field) const
         "checksum",
         "lastMessage",
         "startTransmission",
+        "ack",
     };
-    return (field>=0 && field<6) ? fieldNames[field] : nullptr;
+    return (field>=0 && field<7) ? fieldNames[field] : nullptr;
 }
 
 int MyMessageDescriptor::findField(const char *fieldName) const
@@ -412,6 +428,7 @@ int MyMessageDescriptor::findField(const char *fieldName) const
     if (fieldName[0]=='c' && strcmp(fieldName, "checksum")==0) return base+3;
     if (fieldName[0]=='l' && strcmp(fieldName, "lastMessage")==0) return base+4;
     if (fieldName[0]=='s' && strcmp(fieldName, "startTransmission")==0) return base+5;
+    if (fieldName[0]=='a' && strcmp(fieldName, "ack")==0) return base+6;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -430,8 +447,9 @@ const char *MyMessageDescriptor::getFieldTypeString(int field) const
         "int",
         "bool",
         "bool",
+        "int",
     };
-    return (field>=0 && field<6) ? fieldTypeStrings[field] : nullptr;
+    return (field>=0 && field<7) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **MyMessageDescriptor::getFieldPropertyNames(int field) const
@@ -504,6 +522,7 @@ std::string MyMessageDescriptor::getFieldValueAsString(void *object, int field, 
         case 3: return long2string(pp->getChecksum());
         case 4: return bool2string(pp->getLastMessage());
         case 5: return bool2string(pp->getStartTransmission());
+        case 6: return long2string(pp->getAck());
         default: return "";
     }
 }
@@ -524,6 +543,7 @@ bool MyMessageDescriptor::setFieldValueAsString(void *object, int field, int i, 
         case 3: pp->setChecksum(string2long(value)); return true;
         case 4: pp->setLastMessage(string2bool(value)); return true;
         case 5: pp->setStartTransmission(string2bool(value)); return true;
+        case 6: pp->setAck(string2long(value)); return true;
         default: return false;
     }
 }

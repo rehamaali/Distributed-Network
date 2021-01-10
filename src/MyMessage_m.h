@@ -25,11 +25,12 @@
  * {
  *     \@customize(true);  // see the generated C++ header for more info
  *     int seqNum;
- *     int msgType;
+ *     int msgType;	// 0->data, 1->ack, 2->nack
  *     string frame;
  *     int checksum;
  *     bool lastMessage;
  *     bool startTransmission;
+ *     int ack;
  * }
  * </pre>
  *
@@ -66,6 +67,7 @@ class MyMessage_Base : public ::omnetpp::cPacket
     int checksum;
     bool lastMessage;
     bool startTransmission;
+    int ack;
 
   private:
     void copy(const MyMessage_Base& other);
@@ -98,6 +100,8 @@ class MyMessage_Base : public ::omnetpp::cPacket
     virtual void setLastMessage(bool lastMessage);
     virtual bool getStartTransmission() const;
     virtual void setStartTransmission(bool startTransmission);
+    virtual int getAck() const;
+    virtual void setAck(int ack);
 };
 
 
