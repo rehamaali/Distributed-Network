@@ -6,12 +6,8 @@ Define_Module(Node);
 
 void Node::initialize()
 {
-    // TODO - Generated method body
     flag = char(27);      //Esc
     esc = '@';
-
-    isPeerFinished = 0;
-    nxtMsgIndex = 0;
 
     string fileName = "input/" + to_string(getIndex());
     ifstream infile(fileName);

@@ -27,6 +27,7 @@ class Node : public cSimpleModule
     bool getUserMsg (string& msg);
     int getCheckSum (string& msg, int sum=0);
     void addNoiseAndSend(cMessage *msg,int dest);
+    bool checkError(string& frame, int checksum);
 };
 
 #endif
