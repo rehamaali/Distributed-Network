@@ -7,7 +7,7 @@ package deathlyhallows_sf2020;
 simple Master
 {
     parameters:
-        double lambda = default (2.0);
+        double lambdaMaster = default (2.0);
     gates:
         output outs[];
 }

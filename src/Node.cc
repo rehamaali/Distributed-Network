@@ -75,9 +75,41 @@ int Node::getCheckSum (string msg)
     return sum;
 }
 
-string Node::addNoise(string msg)
+void Node::addNoiseAndSend(cMessage *msg, int dest)
 {
+   string msgContent = msg->getName();
 
+   int addNoise=rand()%10;
+   if(addNoise>=8)   // add noise
+   {
+       int noiseType=rand()%4;
+       if(noiseType == 0)       // modify one bit
+       {
+           int charInd = rand() % msgContent.size();
+           bitset <8> toBeModified (msgContent[charInd]);
+           int bitIndex = rand() % 8;
+           toBeModified[bitIndex] = !toBeModified[bitIndex];
+           msgContent[charInd] = (char) toBeModified.to_ulong();
+           msg->setName(msgContent.c_str());
+           send(msg,"outs",dest);
+       }
+       else if (noiseType == 1)     //delay
+        {
+           double delay = exponential(1 / par("lambdaNode").doubleValue());
+           sendDelayed(msg,delay,"outs",dest);
+        }
+       else if (noiseType == 2)    // duplicate
+        {
+           send(msg,"outs",dest);
+           send(msg,"outs",dest);
+        }
+       else                        //loss
+       {
+           return;
+       }
+   }
+   else  //don't add noise
+       send(msg,"outs",dest);
 }
 void Node::startTransmission()
 {
@@ -87,7 +119,7 @@ void Node::endTransmission()
 {
     inTransmission = false;
 }
-void Node::isInTransmission()
+bool Node::isInTransmission()
 {
     return inTransmission;
 }

@@ -24,9 +24,10 @@ class Node : public cSimpleModule
     string framming (string payload);
     string getUserMsg ();
     int getCheckSum (string msg);
-    string addNoise(string msg);
+    void addNoiseAndSend(cMessage *msg,int dest);
     void startTransmission();
     void endTransmission();
+    bool isInTransmission();
 };
 
 #endif
