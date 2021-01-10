@@ -25,9 +25,9 @@ void Master::handleMessage(cMessage *msg)
         int secondNode = nodesConnection[firstNode];
         nodesConnection[firstNode] = nodesConnection[secondNode] = -1;
         freeNodes += 2;
+        delete msg;
         return;
     }
-
     int choose = rand() % 2;           // choose if it will choose two nodes or not.
 
     if(choose == 0 && freeNodes)                   //will choose
@@ -53,10 +53,10 @@ void Master::handleMessage(cMessage *msg)
             rand_dest--;
 
         //send msg to src (containing dest gate index) to inform it to send a msg to this dest
-        delete msg;
-        msg = new cMessage(to_string(rand_dest).c_str());
-        send(msg,"outs",rand_src);
+        cMessage *msg2 = new cMessage(to_string(rand_dest).c_str());
+        send(msg2,"outs",rand_src);
     }
+    delete msg;
 
     //self reminder
     scheduleAt(simTime() + 30, new cMessage(""));
