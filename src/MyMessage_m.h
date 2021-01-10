@@ -18,22 +18,18 @@
 
 
 
-// cplusplus {{
-    #include <bitset>
-	typedef  std::bitset<8> bits;
-// }}
-
 /**
- * Class generated from <tt>MyMessage.msg:10</tt> by nedtool.
+ * Class generated from <tt>MyMessage.msg:2</tt> by nedtool.
  * <pre>
  * packet MyMessage
  * {
  *     \@customize(true);  // see the generated C++ header for more info
- *     int Seq_Num;
- *     int M_Type;
+ *     int seqNum;
+ *     int msgType;
  *     string frame;
- *     string M_Payload;
- *     bits check_sum;
+ *     int checksum;
+ *     bool lastMessage;
+ *     bool startTransmission;
  * }
  * </pre>
  *
@@ -64,11 +60,12 @@
 class MyMessage_Base : public ::omnetpp::cPacket
 {
   protected:
-    int Seq_Num;
-    int M_Type;
+    int seqNum;
+    int msgType;
     ::omnetpp::opp_string frame;
-    ::omnetpp::opp_string M_Payload;
-    bits check_sum;
+    int checksum;
+    bool lastMessage;
+    bool startTransmission;
 
   private:
     void copy(const MyMessage_Base& other);
@@ -89,17 +86,18 @@ class MyMessage_Base : public ::omnetpp::cPacket
     virtual void parsimUnpack(omnetpp::cCommBuffer *b) override;
 
     // field getter/setter methods
-    virtual int getSeq_Num() const;
-    virtual void setSeq_Num(int Seq_Num);
-    virtual int getM_Type() const;
-    virtual void setM_Type(int M_Type);
+    virtual int getSeqNum() const;
+    virtual void setSeqNum(int seqNum);
+    virtual int getMsgType() const;
+    virtual void setMsgType(int msgType);
     virtual const char * getFrame() const;
     virtual void setFrame(const char * frame);
-    virtual const char * getM_Payload() const;
-    virtual void setM_Payload(const char * M_Payload);
-    virtual bits& getCheck_sum();
-    virtual const bits& getCheck_sum() const {return const_cast<MyMessage_Base*>(this)->getCheck_sum();}
-    virtual void setCheck_sum(const bits& check_sum);
+    virtual int getChecksum() const;
+    virtual void setChecksum(int checksum);
+    virtual bool getLastMessage() const;
+    virtual void setLastMessage(bool lastMessage);
+    virtual bool getStartTransmission() const;
+    virtual void setStartTransmission(bool startTransmission);
 };
 
 

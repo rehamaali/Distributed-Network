@@ -3,7 +3,9 @@
 #define __DEATHLYHALLOWS_SF2020_NODE_H_
 
 #include <omnetpp.h>
-#include <bitset>
+#include <bits/stdc++.h>
+#include "MyMessage_m.h"
+
 using namespace omnetpp;
 using namespace std;
 
@@ -12,22 +14,19 @@ using namespace std;
  */
 class Node : public cSimpleModule
 {
-  public:
-    char stuffingByte1,stuffingByte2;
-
   private:
-    bool inTransmission;
+    char flag, esc;
+    vector<string> msgsVec;
+    int nxtMsgIndex;            // TODO: To be initialized.
+    bool isMeFinished;          // TODO: To be initialized.
 
   protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
     string framming (string payload);
-    string getUserMsg ();
-    int getCheckSum (string msg);
+    bool getUserMsg (string& msg);
+    int getCheckSum (string& msg, int sum=0);
     void addNoiseAndSend(cMessage *msg,int dest);
-    void startTransmission();
-    void endTransmission();
-    bool isInTransmission();
 };
 
 #endif

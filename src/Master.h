@@ -26,6 +26,9 @@ using namespace std;
  */
 class Master : public cSimpleModule
 {
+private:
+    vector<int> nodesConnection;
+    int freeNodes;
   protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);

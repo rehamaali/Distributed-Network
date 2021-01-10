@@ -7,11 +7,11 @@ network Network
 {
     parameters:
         //number of nodes:
-        int n = default(5);
+        int nodesCount = default(6);
         
     submodules:
         //nodes: send and recieve from each others
-        nodes[n]: Node;
+        nodes[nodesCount]: Node;
         //master: randomly choose which src to send to which dest  
         master: Master;
         
@@ -24,6 +24,7 @@ network Network
         //connect each node to the masters (master only send to nodes)
         for i=0..sizeof(nodes)-1 {
             master.outs++ --> IdealChannel --> nodes[i].ins++;
+            master.ins++ <-- IdealChannel <-- nodes[i].outs++;
         }
 }
 

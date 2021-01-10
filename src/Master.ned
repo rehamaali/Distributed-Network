@@ -10,4 +10,5 @@ simple Master
         double lambdaMaster = default (2.0);
     gates:
         output outs[];
+        input ins[];
 }
