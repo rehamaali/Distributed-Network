@@ -26,18 +26,6 @@ using namespace std;
 
 };
 
-class Timer
-{
-private:
-        double timer;
-
-public:
-        void setTimer(double);
-        double getTimer();
-        void resetTimer();
-        bool checkTimer(double);
-};
-
 class Node : public cSimpleModule
 {
 
@@ -63,8 +51,8 @@ class Node : public cSimpleModule
     vector<bool> arrived;
     int currentBufCount;
 
-    vector<Timer> frameTimer;
-    Timer ackTimer;
+    vector<cMessage*> frameTimer;
+    cMessage* ackTimer, *networkReady;
 
   protected:
     virtual void initialize();
@@ -77,7 +65,9 @@ class Node : public cSimpleModule
     void sendMessage(int msgType, int frameNum, bool startTransmission=false);
     inline void inc(int&);
     inline bool inRange(int,int,int);
-    void setTimer(int);
+    void setTimer(cMessage*&, int);
+    void resetTimer(cMessage*&);
+    bool isTimeout(cMessage*&, cMessage*&);
 };
 
 #endif

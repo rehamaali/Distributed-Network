@@ -18,6 +18,11 @@ void Node::initialize()
     inBuffer.resize(BUFCOUNT);
     frameTimer.resize(BUFCOUNT);
 
+
+    for(int i=0 ; i<arrived.size() ; ++i)   frameTimer[i] = NULL;
+    ackTimer = NULL;
+    networkReady = NULL;
+
     string fileName = "input/node" + to_string(getIndex()) + ".txt";
     ifstream infile(fileName);
     string msg;
@@ -37,26 +42,30 @@ void Node::handleMessage(cMessage *msg)
         int type = atoi(msg->getName());
         if(type == -2)   // ready_to_send
         {
+            resetTimer(networkReady);
             if(!isMeFinished  && currentBufCount < BUFCOUNT)
             {
                 event = readyToSend;
             }
+            msg = NULL;
         }
         else if(type == -1)  // ack_timeout
         {
-            if(ackTimer.checkTimer(msg->getSendingTime().dbl()))
+            if(isTimeout(ackTimer, msg))
             {
-                ackTimer.resetTimer();
+                resetTimer(ackTimer);
                 event = ackTimeout;
+                msg = NULL;
             }
         }
         else   // frame_timeout
         {
-            if(frameTimer[type].checkTimer(msg->getSendingTime().dbl()))
+            if(isTimeout(frameTimer[type], msg))
             {
-                frameTimer[type].resetTimer();
+                resetTimer(frameTimer[type]);
                 timeoutFrameNum = type;
                 event = timeout;
+                msg = NULL;
             }
         }
     }
@@ -113,16 +122,20 @@ void Node::handleMessage(cMessage *msg)
         {
             if(isMeFinished)
             {
-                if(recMsg->getLastMessage())
+                if((isSource==1 && recMsg->getLastMessage()) || recMsg->getMsgType() == 3)
                 {
-                    cout << "Debug me" << endl;
+                    resetTimer(ackTimer);
+                    resetTimer(networkReady);
+                    for(int i=0 ; i<frameTimer.size() ; ++i)    resetTimer(frameTimer[i]);
                 }
+
                 if(isSource==1 && recMsg->getLastMessage())
                 {
                     cout << "to Master" << endl;
                     isSource=2;
                     cMessage *msgToSent = new cMessage("");
                     send(msgToSent, "outs", gateSize("ins")-1);  // send to master
+                    sendMessage(3, 0, 0);    // send ack
                 }
                 else if(!isSource)
                 {
@@ -140,7 +153,7 @@ void Node::handleMessage(cMessage *msg)
                 }
                 else
                 {
-                    setTimer(-1);
+                    setTimer(ackTimer, -1);
                 }
 
                 if(inRange(frameExpected, recMsg->getSeqNum(), tooFar) && !arrived[recMsg->getSeqNum()%BUFCOUNT])
@@ -155,7 +168,7 @@ void Node::handleMessage(cMessage *msg)
                         arrived[frameExpected%BUFCOUNT] = 0;
                         inc(frameExpected);
                         inc(tooFar);
-                        setTimer(-1);
+                        setTimer(ackTimer, -1);
                     }
                 }
             }
@@ -168,7 +181,7 @@ void Node::handleMessage(cMessage *msg)
             while(inRange(ackExpected, recMsg->getAck(), nextFrameToSend))
             {
                 --currentBufCount;
-                frameTimer[ackExpected%BUFCOUNT].resetTimer();
+                resetTimer(frameTimer[ackExpected%BUFCOUNT]);
                 inc(ackExpected);
             }
 
@@ -179,7 +192,7 @@ void Node::handleMessage(cMessage *msg)
             while(inRange(ackExpected, recMsg->getAck(), nextFrameToSend))
             {
                 --currentBufCount;
-                frameTimer[ackExpected%BUFCOUNT].resetTimer();
+                resetTimer(frameTimer[ackExpected%BUFCOUNT]);
                 inc(ackExpected);
             }
             if(noNAK)
@@ -193,18 +206,21 @@ void Node::handleMessage(cMessage *msg)
         }
         case ackTimeout:
         {
-
             sendMessage(1, 0, 0);
             break;
         }
     }
 
-    delete msg;
+    if(msg != NULL)
+        delete msg;
 
     if(!isMeFinished && currentBufCount < BUFCOUNT)
     {
-        cMessage *msg2 = new cMessage(to_string(-2).c_str());
-        scheduleAt(simTime() + par("networkReadyDelay").doubleValue(), msg2);
+        setTimer(networkReady, -2);
+    }
+    else
+    {
+        resetTimer(networkReady);
     }
 
 
@@ -244,9 +260,9 @@ void Node::sendMessage(int msgType, int frameNum, bool startTransmission)
     addNoiseAndSend(msgToSent, currentPeer);
     if(msgType == 0)
     {
-        setTimer(frameNum%BUFCOUNT);
+        setTimer(frameTimer[frameNum%BUFCOUNT], frameNum%BUFCOUNT);
     }
-    ackTimer.resetTimer();
+    resetTimer(ackTimer);
 }
 
 void Node::init(int peer)
@@ -263,8 +279,9 @@ void Node::init(int peer)
     tooFar = BUFCOUNT;
 
     currentBufCount = 0;
-    for(int i=0 ; i<arrived.size() ; ++i)   arrived[i]=0, frameTimer[i].resetTimer();
-    ackTimer.resetTimer();
+    for(int i=0 ; i<arrived.size() ; ++i)   arrived[i]=0, resetTimer(frameTimer[i]);
+    resetTimer(ackTimer);
+    resetTimer(networkReady);
 }
 
 string Node::framming(string payload)
@@ -346,41 +363,38 @@ void Node::addNoiseAndSend(MyMessage_Base *msg, int dest)
        send(msg,"outs",dest);
 }
 
-void Node::setTimer(int type)
+void Node::setTimer(cMessage*& timer, int type)
 {
+    resetTimer(timer);
+    timer = new cMessage(to_string(type).c_str());
+
     double time = simTime().dbl();
-    if(type == -1)
+
+    if(type == -2)
+    {
+        time += par("networkReadyDelay").doubleValue();
+    }
+    else if(type == -1)
     {
         time += par("ackTimeout").doubleValue();
-        ackTimer.setTimer(time);
     }
     else
     {
         time += par("frameTimeout").doubleValue();
-        frameTimer[type].setTimer(time);
     }
-
-    cMessage *msg = new cMessage(to_string(type).c_str());
-    scheduleAt(time, msg);
+    scheduleAt(time, timer);
 }
 
-void Timer::setTimer(double time)
+void Node::resetTimer(cMessage*& timer)
 {
-    timer = time;
+    if(timer!=NULL)
+    {
+        cancelAndDelete(timer);
+        timer = NULL;
+    }
 }
 
-void Timer::resetTimer()
+bool Node::isTimeout(cMessage*& timer, cMessage*& current)
 {
-    timer = -1;
-}
-
-double Timer::getTimer()
-{
-    return timer;
-}
-
-bool Timer::checkTimer(double time)
-{
-    if(timer==-1)   return 0;
-    return abs(timer - time)<=1e-6;
+    return timer == current;
 }
