@@ -58,6 +58,7 @@ class Node : public cSimpleModule
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
     string framming (string payload);
+    string unframe(string frame);
     bool getUserMsg (string& msg);
     int getCheckSum (string& msg, int sum=0);
     void addNoiseAndSend(MyMessage_Base *msg,int dest);

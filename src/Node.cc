@@ -11,7 +11,7 @@ Define_Module(Node);
 
 void Node::initialize()
 {
-    flag = char(27);      //Esc
+    flag = '$';      //Esc
     esc = '@';
     arrived.resize(BUFCOUNT);
     outBuffer.resize(BUFCOUNT);
@@ -85,14 +85,15 @@ void Node::handleMessage(cMessage *msg)
         }
 
         int checkSum=getCheckSum(frame, recMsg->getChecksum());
+
+        EV << "Received Frame(" << frame << ") Checksum : " << getCheckSum(frame) << endl;
         if(recMsg->getMsgType() == 0 && checkSum)
         {
+            EV << "Checksum detected error at message \"" << frame << "\"" << endl;
             event = checksumErr;
         }
         else
         {
-            if(recMsg->getMsgType() == 0)
-                EV << getIndex() << " received " << recMsg->getFrame()<< endl;
             event = frameArrival;
         }
     }
@@ -120,30 +121,13 @@ void Node::handleMessage(cMessage *msg)
         }
         case frameArrival:
         {
-            if(isMeFinished)
-            {
-                if((isSource==1 && recMsg->getLastMessage()) || recMsg->getMsgType() == 3)
-                {
-                    resetTimer(ackTimer);
-                    resetTimer(networkReady);
-                    for(int i=0 ; i<frameTimer.size() ; ++i)    resetTimer(frameTimer[i]);
-                }
-
-                if(isSource==1 && recMsg->getLastMessage())
-                {
-                    cout << "to Master" << endl;
-                    isSource=2;
-                    cMessage *msgToSent = new cMessage("");
-                    send(msgToSent, "outs", gateSize("ins")-1);  // send to master
-                    sendMessage(3, 0, 0);    // send ack
-                }
-                else if(!isSource)
-                {
-                    sendMessage(1, 0, 0);    // send ack
-                }
-                delete msg;
-                return;
-            }
+            string payload = unframe(recMsg->getFrame());
+            recMsg->setFrame(payload.c_str());
+            int msgType = recMsg->getMsgType();
+            EV << "Received messaage with payload \"" << recMsg->getFrame() << "\", ";
+            EV << "sequence number \"" << recMsg->getSeqNum() << "\", ";
+            EV << "message type \"" << ((msgType==0)?"data":(msgType==1)?"ack":(msgType==2)?"nak":"terminate") << "\", ";
+            EV << "at node \"" << getFullName() << "\"" << endl;
 
             if(recMsg->getMsgType() == 0)
             {
@@ -155,7 +139,6 @@ void Node::handleMessage(cMessage *msg)
                 {
                     setTimer(ackTimer, -1);
                 }
-
                 if(inRange(frameExpected, recMsg->getSeqNum(), tooFar) && !arrived[recMsg->getSeqNum()%BUFCOUNT])
                 {
                     arrived[recMsg->getSeqNum()%BUFCOUNT] = 1;
@@ -176,6 +159,7 @@ void Node::handleMessage(cMessage *msg)
             if(recMsg->getMsgType()==2 && inRange(ackExpected, (recMsg->getAck()+1) % (MAXSEQNUM+1), nextFrameToSend))
             {
                 sendMessage(0, (recMsg->getAck()+1) % (MAXSEQNUM+1), 0);
+                EV << "Retransmitting message payload \"" << outBuffer[((recMsg->getAck()+1) % (MAXSEQNUM+1))%BUFCOUNT] <<"\"" << endl;
             }
 
             while(inRange(ackExpected, recMsg->getAck(), nextFrameToSend))
@@ -183,6 +167,30 @@ void Node::handleMessage(cMessage *msg)
                 --currentBufCount;
                 resetTimer(frameTimer[ackExpected%BUFCOUNT]);
                 inc(ackExpected);
+            }
+
+
+            if(isMeFinished)
+            {
+                if((isSource==1 && recMsg->getLastMessage()) || recMsg->getMsgType() == 3)
+                {
+                    resetTimer(ackTimer);
+                    resetTimer(networkReady);
+                    for(int i=0 ; i<frameTimer.size() ; ++i)    resetTimer(frameTimer[i]);
+                }
+
+                if(isSource==1 && recMsg->getLastMessage())
+                {
+                    cout << "to Master" << endl;
+                    isSource=2;
+                    cMessage *msgToSent = new cMessage("");
+                    send(msgToSent, "outs", gateSize("ins")-1);  // send to master
+                    sendMessage(3, 0, 0);    // send ack
+                }
+//                else if(isSource<2)
+//                {
+//                    sendMessage(1, 0, 0);    // send ack
+//                }
             }
 
             break;
@@ -202,10 +210,13 @@ void Node::handleMessage(cMessage *msg)
         case timeout:
         {
             sendMessage(0/*data*/, timeoutFrameNum, 0);
+            EV << "Time out for frame number \"" << timeoutFrameNum << "\" at node \"" << getFullName() << "\"" << endl;
+            EV << "Retransmitting message payload \"" << outBuffer[timeoutFrameNum%BUFCOUNT] <<"\"" << endl;
             break;
         }
         case ackTimeout:
         {
+            EV << "Time out for \"ack\" at node \"" << getFullName() << "\"" << endl;
             sendMessage(1, 0, 0);
             break;
         }
@@ -248,7 +259,9 @@ void Node::sendMessage(int msgType, int frameNum, bool startTransmission)
     {
         frame = framming(outBuffer[frameNum%BUFCOUNT]);
         msgToSent->setFrame(frame.c_str());
-        EV << getIndex() << " sent " << frame << endl;
+        cout << frame << endl;
+        EV << "Frame(" << msgToSent->getFrame() << ") Checksum: " << getCheckSum(frame) << endl;
+//        EV << getIndex() << " sent " << frame << endl;
     }
     msgToSent->setSeqNum(frameNum);
     msgToSent->setAck((frameExpected + MAXSEQNUM)%(MAXSEQNUM+1));
@@ -286,6 +299,7 @@ void Node::init(int peer)
 
 string Node::framming(string payload)
 {
+    EV << "Framing: \"" << payload;
     string frame = "";
     frame +=  flag;
     int payload_size = payload.size();
@@ -297,8 +311,30 @@ string Node::framming(string payload)
         frame+=payload[i];
     }
     frame += flag;
+    EV << "\" -> \"" << frame << "\"" << endl;
     return frame;
 }
+
+string Node::unframe(string frame)
+{
+    string payload = "";
+    int frame_size = frame.size();
+    bool getcurrent = 0;
+    for(int i=1;i<frame_size-1;i++)
+    {
+        if(frame[i]==esc && !getcurrent)
+        {
+            getcurrent=1;
+        }
+        else
+        {
+            payload+=frame[i];
+            getcurrent=0;
+        }
+    }
+    return payload;
+}
+
 
 bool Node::getUserMsg (string& msg)
 {
@@ -331,31 +367,32 @@ void Node::addNoiseAndSend(MyMessage_Base *msg, int dest)
        int noiseType=rand()%4;
        if(noiseType == 0 && msgContent.size()>0)       // modify one bit
        {
-           EV << "Corruption" << endl;
+           EV << "Corruption: " << msgContent;
            int charInd = rand() % msgContent.size();
            bitset <8> toBeModified (msgContent[charInd]);
            int bitIndex = rand() % 8;
            toBeModified[bitIndex] = !toBeModified[bitIndex];
            msgContent[charInd] = (char) toBeModified.to_ulong();
            msg->setFrame(msgContent.c_str());
+           EV << " -> " << msgContent << endl;
            send(msg,"outs",dest);
        }
        else if (noiseType == 1)     //delay
         {
            double delay = exponential(1 / par("lambdaNode").doubleValue());
-           EV << "Delay" << endl;
+           EV << "Delay: " << msgContent << " with delay (" << delay << ") -> Send at: " << simTime().dbl()+delay << endl;
            sendDelayed(msg,delay,"outs",dest);
         }
        else if (noiseType == 2)    // duplicate
         {
-           EV << "Duplicate" << endl;
+           EV << "Duplicate: " << msgContent << endl;
            send(msg,"outs",dest);
            MyMessage_Base *msg2 = msg->dup();
            send(msg2,"outs",dest);
         }
        else                        //loss
        {
-           EV << "Loss" << endl;
+           EV << "Loss: " << msgContent << endl;
            return;
        }
    }
