@@ -184,13 +184,9 @@ void Node::handleMessage(cMessage *msg)
                     cout << "to Master" << endl;
                     isSource=2;
                     cMessage *msgToSent = new cMessage("");
-                    send(msgToSent, "outs", gateSize("ins")-1);  // send to master
                     sendMessage(3, 0, 0);    // send ack
+                    send(msgToSent, "outs", gateSize("ins")-1);  // send to master
                 }
-//                else if(isSource<2)
-//                {
-//                    sendMessage(1, 0, 0);    // send ack
-//                }
             }
 
             break;

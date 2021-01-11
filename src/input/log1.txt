@@ -1,0 +1,659 @@
+** Initializing network
+
+Initializing channel Network.nodes[0].outs[0].channel, stage 0
+Initializing channel Network.nodes[0].outs[1].channel, stage 0
+Initializing channel Network.nodes[0].outs[2].channel, stage 0
+Initializing channel Network.nodes[0].outs[3].channel, stage 0
+Initializing channel Network.nodes[0].outs[4].channel, stage 0
+Initializing channel Network.nodes[0].outs[5].channel, stage 0
+Initializing channel Network.nodes[1].outs[0].channel, stage 0
+Initializing channel Network.nodes[1].outs[1].channel, stage 0
+Initializing channel Network.nodes[1].outs[2].channel, stage 0
+Initializing channel Network.nodes[1].outs[3].channel, stage 0
+Initializing channel Network.nodes[1].outs[4].channel, stage 0
+Initializing channel Network.nodes[1].outs[5].channel, stage 0
+Initializing channel Network.nodes[2].outs[0].channel, stage 0
+Initializing channel Network.nodes[2].outs[1].channel, stage 0
+Initializing channel Network.nodes[2].outs[2].channel, stage 0
+Initializing channel Network.nodes[2].outs[3].channel, stage 0
+Initializing channel Network.nodes[2].outs[4].channel, stage 0
+Initializing channel Network.nodes[2].outs[5].channel, stage 0
+Initializing channel Network.nodes[3].outs[0].channel, stage 0
+Initializing channel Network.nodes[3].outs[1].channel, stage 0
+Initializing channel Network.nodes[3].outs[2].channel, stage 0
+Initializing channel Network.nodes[3].outs[3].channel, stage 0
+Initializing channel Network.nodes[3].outs[4].channel, stage 0
+Initializing channel Network.nodes[3].outs[5].channel, stage 0
+Initializing channel Network.nodes[4].outs[0].channel, stage 0
+Initializing channel Network.nodes[4].outs[1].channel, stage 0
+Initializing channel Network.nodes[4].outs[2].channel, stage 0
+Initializing channel Network.nodes[4].outs[3].channel, stage 0
+Initializing channel Network.nodes[4].outs[4].channel, stage 0
+Initializing channel Network.nodes[4].outs[5].channel, stage 0
+Initializing channel Network.nodes[5].outs[0].channel, stage 0
+Initializing channel Network.nodes[5].outs[1].channel, stage 0
+Initializing channel Network.nodes[5].outs[2].channel, stage 0
+Initializing channel Network.nodes[5].outs[3].channel, stage 0
+Initializing channel Network.nodes[5].outs[4].channel, stage 0
+Initializing channel Network.nodes[5].outs[5].channel, stage 0
+Initializing channel Network.master.outs[0].channel, stage 0
+Initializing channel Network.master.outs[1].channel, stage 0
+Initializing channel Network.master.outs[2].channel, stage 0
+Initializing channel Network.master.outs[3].channel, stage 0
+Initializing channel Network.master.outs[4].channel, stage 0
+Initializing channel Network.master.outs[5].channel, stage 0
+Initializing module Network, stage 0
+Initializing module Network.nodes[0], stage 0
+Initializing module Network.nodes[1], stage 0
+Initializing module Network.nodes[2], stage 0
+Initializing module Network.nodes[3], stage 0
+Initializing module Network.nodes[4], stage 0
+Initializing module Network.nodes[5], stage 0
+Initializing module Network.master, stage 0
+** Event #1  t=0.397937252283  Network.master (Master, id=8)  on selfmsg  (omnetpp::cMessage, id=0)
+
+** Event #2  t=30.397937252283  Network.master (Master, id=8)  on selfmsg  (omnetpp::cMessage, id=1)
+
+** Event #3  t=60.397937252283  Network.master (Master, id=8)  on selfmsg  (omnetpp::cMessage, id=2)
+
+INFO:pair(3, 4) started
+** Event #4  t=60.397937252283  Network.nodes[3] (Node, id=5)  on 3 (omnetpp::cMessage, id=3)
+
+INFO:Framing: "1/8.Hello iam node 3" -> "$1/8.Hello iam node 3$"
+INFO:Frame($1/8.Hello iam node 3$) Checksum: 135
+** Event #5  t=60.397937252283  Network.nodes[4] (Node, id=6)  on  (MyMessage_Base, id=5)
+
+INFO:Received Frame($1/8.Hello iam node 3$) Checksum : 135
+INFO:Received messaage with payload "1/8.Hello iam node 3", sequence number "0", message type "data", at node "nodes[4]"
+** Event #6  t=60.497937252283  Network.nodes[3] (Node, id=5)  on selfmsg -2 (omnetpp::cMessage, id=7)
+
+INFO:Framing: "2/8.The violin," -> "$2/8.The violin,$"
+INFO:Frame($2/8.The violin,$) Checksum: 237
+INFO:Corruption: $2/8.The violin,$ -> $2/8.The viomin,$
+** Event #7  t=60.497937252283  Network.nodes[4] (Node, id=6)  on selfmsg -2 (omnetpp::cMessage, id=10)
+
+INFO:Framing: "1/7.Hello iam node 1" -> "$1/7.Hello iam node 1$"
+INFO:Frame($1/7.Hello iam node 1$) Checksum: 138
+** Event #8  t=60.497937252283  Network.nodes[4] (Node, id=6)  on  (MyMessage_Base, id=11)
+
+INFO:Received Frame($2/8.The viomin,$) Checksum : 236
+INFO:Checksum detected error at message "$2/8.The viomin,$"
+** Event #9  t=60.497937252283  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=14)
+
+INFO:Received Frame($1/7.Hello iam node 1$) Checksum : 138
+INFO:Received messaage with payload "1/7.Hello iam node 1", sequence number "0", message type "data", at node "nodes[3]"
+** Event #10  t=60.497937252283  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=17)
+
+INFO:Received Frame() Checksum : 255
+INFO:Received messaage with payload "", sequence number "0", message type "nak", at node "nodes[3]"
+INFO:Framing: "2/8.The violin," -> "$2/8.The violin,$"
+INFO:Frame($2/8.The violin,$) Checksum: 237
+INFO:Loss: $2/8.The violin,$
+INFO:Retransmitting message payload "2/8.The violin,"
+** Event #11  t=60.597937252283  Network.nodes[4] (Node, id=6)  on selfmsg -2 (omnetpp::cMessage, id=18)
+
+INFO:Framing: "2/7.A flower, sometimes known as" -> "$2/7.A flower, sometimes known as$"
+INFO:Frame($2/7.A flower, sometimes known as$) Checksum: 147
+** Event #12  t=60.597937252283  Network.nodes[3] (Node, id=5)  on selfmsg -2 (omnetpp::cMessage, id=24)
+
+INFO:Framing: "3/8.sometimes known as a fiddle" -> "$3/8.sometimes known as a fiddle$"
+INFO:Frame($3/8.sometimes known as a fiddle$) Checksum: 196
+INFO:Duplicate: $3/8.sometimes known as a fiddle$
+** Event #13  t=60.597937252283  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=25)
+
+INFO:Received Frame($2/7.A flower, sometimes known as$) Checksum : 147
+INFO:Received messaage with payload "2/7.A flower, sometimes known as", sequence number "1", message type "data", at node "nodes[3]"
+** Event #14  t=60.597937252283  Network.nodes[4] (Node, id=6)  on  (MyMessage_Base, id=28)
+
+INFO:Received Frame($3/8.sometimes known as a fiddle$) Checksum : 196
+INFO:Received messaage with payload "3/8.sometimes known as a fiddle", sequence number "2", message type "data", at node "nodes[4]"
+** Event #15  t=60.597937252283  Network.nodes[4] (Node, id=6)  on  (MyMessage_Base, id=29)
+
+INFO:Received Frame($3/8.sometimes known as a fiddle$) Checksum : 196
+INFO:Received messaage with payload "3/8.sometimes known as a fiddle", sequence number "2", message type "data", at node "nodes[4]"
+** Event #16  t=60.697937252283  Network.nodes[3] (Node, id=5)  on selfmsg -2 (omnetpp::cMessage, id=34)
+
+INFO:Framing: "4/8.is a wooden chordophone" -> "$4/8.is a wooden chordophone$"
+INFO:Frame($4/8.is a wooden chordophone$) Checksum: 35
+** Event #17  t=60.697937252283  Network.nodes[4] (Node, id=6)  on selfmsg -2 (omnetpp::cMessage, id=38)
+
+INFO:Framing: "3/7.a bloom or blossom," -> "$3/7.a bloom or blossom,$"
+INFO:Frame($3/7.a bloom or blossom,$) Checksum: 3
+INFO:Corruption: $3/7.a bloom or blossom,$ -> $3-7.a bloom or blossom,$
+** Event #18  t=60.697937252283  Network.nodes[4] (Node, id=6)  on  (MyMessage_Base, id=39)
+
+INFO:Received Frame($4/8.is a wooden chordophone$) Checksum : 35
+INFO:Received messaage with payload "4/8.is a wooden chordophone", sequence number "3", message type "data", at node "nodes[4]"
+** Event #19  t=60.697937252283  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=42)
+
+INFO:Received Frame($3-7.a bloom or blossom,$) Checksum : 5
+INFO:Checksum detected error at message "$3-7.a bloom or blossom,$"
+INFO:Loss:
+** Event #20  t=60.797937252283  Network.nodes[3] (Node, id=5)  on selfmsg 1 (omnetpp::cMessage, id=23)
+
+INFO:Framing: "2/8.The violin," -> "$2/8.The violin,$"
+INFO:Frame($2/8.The violin,$) Checksum: 237
+INFO:Time out for frame number "1" at node "nodes[3]"
+INFO:Retransmitting message payload "2/8.The violin,"
+** Event #21  t=60.797937252283  Network.nodes[4] (Node, id=6)  on selfmsg -2 (omnetpp::cMessage, id=46)
+
+INFO:Framing: "4/7.is the reproductive" -> "$4/7.is the reproductive$"
+INFO:Frame($4/7.is the reproductive$) Checksum: 110
+** Event #22  t=60.797937252283  Network.nodes[4] (Node, id=6)  on  (MyMessage_Base, id=49)
+
+INFO:Received Frame($2/8.The violin,$) Checksum : 237
+INFO:Received messaage with payload "2/8.The violin,", sequence number "1", message type "data", at node "nodes[4]"
+** Event #23  t=60.797937252283  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=52)
+
+INFO:Received Frame($4/7.is the reproductive$) Checksum : 110
+INFO:Received messaage with payload "4/7.is the reproductive", sequence number "3", message type "data", at node "nodes[3]"
+** Event #24  t=60.897937252283  Network.nodes[3] (Node, id=5)  on selfmsg 2 (omnetpp::cMessage, id=30)
+
+INFO:Framing: "3/8.sometimes known as a fiddle" -> "$3/8.sometimes known as a fiddle$"
+INFO:Frame($3/8.sometimes known as a fiddle$) Checksum: 196
+INFO:Time out for frame number "2" at node "nodes[3]"
+INFO:Retransmitting message payload "3/8.sometimes known as a fiddle"
+** Event #25  t=60.897937252283  Network.nodes[4] (Node, id=6)  on selfmsg -2 (omnetpp::cMessage, id=59)
+
+INFO:Framing: "5/7.structure found in" -> "$5/7.structure found in$"
+INFO:Frame($5/7.structure found in$) Checksum: 194
+** Event #26  t=60.897937252283  Network.nodes[4] (Node, id=6)  on  (MyMessage_Base, id=62)
+
+INFO:Received Frame($3/8.sometimes known as a fiddle$) Checksum : 196
+INFO:Received messaage with payload "3/8.sometimes known as a fiddle", sequence number "2", message type "data", at node "nodes[4]"
+** Event #27  t=60.897937252283  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=65)
+
+INFO:Received Frame($5/7.structure found in$) Checksum : 194
+INFO:Received messaage with payload "5/7.structure found in", sequence number "4", message type "data", at node "nodes[3]"
+** Event #28  t=60.897937252283  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=68)
+
+INFO:Received Frame() Checksum : 255
+INFO:Received messaage with payload "", sequence number "0", message type "nak", at node "nodes[3]"
+** Event #29  t=60.997937252283  Network.nodes[4] (Node, id=6)  on selfmsg 2 (omnetpp::cMessage, id=43)
+
+INFO:Framing: "3/7.a bloom or blossom," -> "$3/7.a bloom or blossom,$"
+INFO:Frame($3/7.a bloom or blossom,$) Checksum: 3
+INFO:Time out for frame number "2" at node "nodes[4]"
+INFO:Retransmitting message payload "3/7.a bloom or blossom,"
+** Event #30  t=60.997937252283  Network.nodes[3] (Node, id=5)  on selfmsg -2 (omnetpp::cMessage, id=72)
+
+INFO:Framing: "5/8.in the violin family." -> "$5/8.in the violin family.$"
+INFO:Frame($5/8.in the violin family.$) Checksum: 44
+** Event #31  t=60.997937252283  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=73)
+
+INFO:Received Frame($3/7.a bloom or blossom,$) Checksum : 3
+INFO:Received messaage with payload "3/7.a bloom or blossom,", sequence number "2", message type "data", at node "nodes[3]"
+** Event #32  t=60.997937252283  Network.nodes[4] (Node, id=6)  on  (MyMessage_Base, id=76)
+
+INFO:Received Frame($5/8.in the violin family.$) Checksum : 44
+INFO:Received messaage with payload "5/8.in the violin family.", sequence number "4", message type "data", at node "nodes[4]"
+** Event #33  t=61.097937252283  Network.nodes[4] (Node, id=6)  on selfmsg 3 (omnetpp::cMessage, id=53)
+
+INFO:Framing: "4/7.is the reproductive" -> "$4/7.is the reproductive$"
+INFO:Frame($4/7.is the reproductive$) Checksum: 110
+INFO:Time out for frame number "3" at node "nodes[4]"
+INFO:Retransmitting message payload "4/7.is the reproductive"
+** Event #34  t=61.097937252283  Network.nodes[3] (Node, id=5)  on selfmsg -2 (omnetpp::cMessage, id=83)
+
+INFO:Framing: "6/8.Most violins have a " -> "$6/8.Most violins have a $"
+INFO:Frame($6/8.Most violins have a $) Checksum: 184
+** Event #35  t=61.097937252283  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=87)
+
+INFO:Received Frame($4/7.is the reproductive$) Checksum : 110
+INFO:Received messaage with payload "4/7.is the reproductive", sequence number "3", message type "data", at node "nodes[3]"
+** Event #36  t=61.097937252283  Network.nodes[4] (Node, id=6)  on  (MyMessage_Base, id=90)
+
+INFO:Received Frame($6/8.Most violins have a $) Checksum : 184
+INFO:Received messaage with payload "6/8.Most violins have a ", sequence number "5", message type "data", at node "nodes[4]"
+** Event #37  t=61.097937252283  Network.nodes[4] (Node, id=6)  on  (MyMessage_Base, id=93)
+
+INFO:Received Frame() Checksum : 255
+INFO:Received messaage with payload "", sequence number "0", message type "nak", at node "nodes[4]"
+** Event #38  t=61.197937252283  Network.nodes[3] (Node, id=5)  on selfmsg -2 (omnetpp::cMessage, id=94)
+
+INFO:Framing: "7/8.hollow wooden body" -> "$7/8.hollow wooden body$"
+INFO:Frame($7/8.hollow wooden body$) Checksum: 212
+** Event #39  t=61.197937252283  Network.nodes[4] (Node, id=6)  on selfmsg -2 (omnetpp::cMessage, id=98)
+
+INFO:Framing: "6/7.flowering plants" -> "$6/7.flowering plants$"
+INFO:Frame($6/7.flowering plants$) Checksum: 103
+** Event #40  t=61.197937252283  Network.nodes[4] (Node, id=6)  on  (MyMessage_Base, id=99)
+
+INFO:Received Frame($7/8.hollow wooden body$) Checksum : 212
+INFO:Received messaage with payload "7/8.hollow wooden body", sequence number "6", message type "data", at node "nodes[4]"
+** Event #41  t=61.197937252283  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=102)
+
+INFO:Received Frame($6/7.flowering plants$) Checksum : 103
+INFO:Received messaage with payload "6/7.flowering plants", sequence number "5", message type "data", at node "nodes[3]"
+** Event #42  t=61.297937252283  Network.nodes[4] (Node, id=6)  on selfmsg -2 (omnetpp::cMessage, id=107)
+
+INFO:Framing: "7/7.end node 1" -> "$7/7.end node 1$"
+INFO:Frame($7/7.end node 1$) Checksum: 154
+INFO:Loss: $7/7.end node 1$
+** Event #43  t=61.297937252283  Network.nodes[3] (Node, id=5)  on selfmsg -2 (omnetpp::cMessage, id=110)
+
+INFO:Framing: "8/8.end node 3" -> "$8/8.end node 3$"
+INFO:Frame($8/8.end node 3$) Checksum: 150
+** Event #44  t=61.297937252283  Network.nodes[4] (Node, id=6)  on  (MyMessage_Base, id=113)
+
+INFO:Received Frame($8/8.end node 3$) Checksum : 150
+INFO:Received messaage with payload "8/8.end node 3", sequence number "7", message type "data", at node "nodes[4]"
+** Event #45  t=61.497937252283  Network.nodes[3] (Node, id=5)  on selfmsg 2 (omnetpp::cMessage, id=100)
+
+INFO:Framing: "7/8.hollow wooden body" -> "$7/8.hollow wooden body$"
+INFO:Frame($7/8.hollow wooden body$) Checksum: 212
+INFO:Time out for frame number "2" at node "nodes[3]"
+INFO:Retransmitting message payload "7/8.hollow wooden body"
+** Event #46  t=61.497937252283  Network.nodes[4] (Node, id=6)  on selfmsg -1 (omnetpp::cMessage, id=116)
+
+INFO:Time out for "ack" at node "nodes[4]"
+INFO:Duplicate:
+** Event #47  t=61.497937252283  Network.nodes[4] (Node, id=6)  on  (MyMessage_Base, id=117)
+
+INFO:Received Frame($7/8.hollow wooden body$) Checksum : 212
+INFO:Received messaage with payload "7/8.hollow wooden body", sequence number "2", message type "data", at node "nodes[4]"
+** Event #48  t=61.497937252283  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=119)
+
+INFO:Received Frame() Checksum : 255
+INFO:Received messaage with payload "", sequence number "0", message type "ack", at node "nodes[3]"
+** Event #49  t=61.497937252283  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=120)
+
+INFO:Received Frame() Checksum : 255
+INFO:Received messaage with payload "", sequence number "0", message type "ack", at node "nodes[3]"
+** Event #50  t=61.497937252283  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=121)
+
+INFO:Received Frame() Checksum : 255
+INFO:Received messaage with payload "", sequence number "0", message type "nak", at node "nodes[3]"
+** Event #51  t=61.497937252283  Network.master (Master, id=8)  on  (omnetpp::cMessage, id=122)
+
+INFO:pair(3, 4) finished
+** Event #52  t=61.497937252283  Network.nodes[4] (Node, id=6)  on  (MyMessage_Base, id=123)
+
+INFO:Received Frame() Checksum : 255
+INFO:Received messaage with payload "", sequence number "0", message type "terminate", at node "nodes[4]"
+** Event #53  t=90.397937252283  Network.master (Master, id=8)  on selfmsg  (omnetpp::cMessage, id=4)
+
+INFO:pair(5, 3) started
+** Event #54  t=90.397937252283  Network.nodes[5] (Node, id=7)  on 3 (omnetpp::cMessage, id=124)
+
+INFO:Framing: "1/6.Hello iam node 5" -> "$1/6.Hello iam node 5$"
+INFO:Frame($1/6.Hello iam node 5$) Checksum: 135
+INFO:Duplicate: $1/6.Hello iam node 5$
+** Event #55  t=90.397937252283  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=126)
+
+INFO:Received Frame($1/6.Hello iam node 5$) Checksum : 135
+INFO:Received messaage with payload "1/6.Hello iam node 5", sequence number "0", message type "data", at node "nodes[3]"
+** Event #56  t=90.397937252283  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=127)
+
+INFO:Received Frame($1/6.Hello iam node 5$) Checksum : 135
+INFO:Received messaage with payload "1/6.Hello iam node 5", sequence number "0", message type "data", at node "nodes[3]"
+** Event #57  t=90.497937252283  Network.nodes[5] (Node, id=7)  on selfmsg -2 (omnetpp::cMessage, id=129)
+
+INFO:Framing: "2/6.Speech is human vocal" -> "$2/6.Speech is human vocal$"
+INFO:Frame($2/6.Speech is human vocal$) Checksum: 40
+** Event #58  t=90.497937252283  Network.nodes[3] (Node, id=5)  on selfmsg -2 (omnetpp::cMessage, id=135)
+
+INFO:Framing: "1/8.Hello iam node 3" -> "$1/8.Hello iam node 3$"
+INFO:Frame($1/8.Hello iam node 3$) Checksum: 135
+** Event #59  t=90.497937252283  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=136)
+
+INFO:Received Frame($2/6.Speech is human vocal$) Checksum : 40
+INFO:Received messaage with payload "2/6.Speech is human vocal", sequence number "1", message type "data", at node "nodes[3]"
+** Event #60  t=90.497937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=139)
+
+INFO:Received Frame($1/8.Hello iam node 3$) Checksum : 135
+INFO:Received messaage with payload "1/8.Hello iam node 3", sequence number "0", message type "data", at node "nodes[5]"
+** Event #61  t=90.597937252283  Network.nodes[3] (Node, id=5)  on selfmsg -2 (omnetpp::cMessage, id=144)
+
+INFO:Framing: "2/8.The violin," -> "$2/8.The violin,$"
+INFO:Frame($2/8.The violin,$) Checksum: 237
+** Event #62  t=90.597937252283  Network.nodes[5] (Node, id=7)  on selfmsg -2 (omnetpp::cMessage, id=147)
+
+INFO:Framing: "3/6.communication using language." -> "$3/6.communication using language.$"
+INFO:Frame($3/6.communication using language.$) Checksum: 151
+** Event #63  t=90.597937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=148)
+
+INFO:Received Frame($2/8.The violin,$) Checksum : 237
+INFO:Received messaage with payload "2/8.The violin,", sequence number "1", message type "data", at node "nodes[5]"
+** Event #64  t=90.597937252283  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=151)
+
+INFO:Received Frame($3/6.communication using language.$) Checksum : 151
+INFO:Received messaage with payload "3/6.communication using language.", sequence number "2", message type "data", at node "nodes[3]"
+** Event #65  t=90.697937252283  Network.nodes[5] (Node, id=7)  on selfmsg -2 (omnetpp::cMessage, id=156)
+
+INFO:Framing: "4/6.Each language uses phonetic" -> "$4/6.Each language uses phonetic$"
+INFO:Frame($4/6.Each language uses phonetic$) Checksum: 182
+** Event #66  t=90.697937252283  Network.nodes[3] (Node, id=5)  on selfmsg -2 (omnetpp::cMessage, id=159)
+
+INFO:Framing: "3/8.sometimes known as a fiddle" -> "$3/8.sometimes known as a fiddle$"
+INFO:Frame($3/8.sometimes known as a fiddle$) Checksum: 196
+INFO:Corruption: $3/8.sometimes known as a fiddle$ -> $3/8.sometimes known
+** Event #67  t=90.697937252283  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=160)
+
+INFO:Received Frame($4/6.Each language uses phonetic$) Checksum : 182
+INFO:Received messaage with payload "4/6.Each language uses phonetic", sequence number "3", message type "data", at node "nodes[3]"
+** Event #68  t=90.697937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=163)
+
+INFO:Received Frame($3/8.sometimes known) Checksum : 233
+INFO:Checksum detected error at message "$3/8.sometimes known"
+** Event #69  t=90.697937252283  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=169)
+
+INFO:Received Frame() Checksum : 255
+INFO:Received messaage with payload "", sequence number "0", message type "nak", at node "nodes[3]"
+INFO:Framing: "3/8.sometimes known as a fiddle" -> "$3/8.sometimes known as a fiddle$"
+INFO:Frame($3/8.sometimes known as a fiddle$) Checksum: 196
+INFO:Retransmitting message payload "3/8.sometimes known as a fiddle"
+** Event #70  t=90.697937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=171)
+
+INFO:Received Frame($3/8.sometimes known as a fiddle$) Checksum : 196
+INFO:Received messaage with payload "3/8.sometimes known as a fiddle", sequence number "2", message type "data", at node "nodes[5]"
+** Event #71  t=90.797937252283  Network.nodes[3] (Node, id=5)  on selfmsg -2 (omnetpp::cMessage, id=173)
+
+INFO:Framing: "4/8.is a wooden chordophone" -> "$4/8.is a wooden chordophone$"
+INFO:Frame($4/8.is a wooden chordophone$) Checksum: 35
+** Event #72  t=90.797937252283  Network.nodes[5] (Node, id=7)  on selfmsg -2 (omnetpp::cMessage, id=176)
+
+INFO:Framing: "5/6.combinations of vowel " -> "$5/6.combinations of vowel $"
+INFO:Frame($5/6.combinations of vowel $) Checksum: 126
+** Event #73  t=90.797937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=177)
+
+INFO:Received Frame($4/8.is a wooden chordophone$) Checksum : 35
+INFO:Received messaage with payload "4/8.is a wooden chordophone", sequence number "3", message type "data", at node "nodes[5]"
+** Event #74  t=90.797937252283  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=180)
+
+INFO:Received Frame($5/6.combinations of vowel $) Checksum : 126
+INFO:Received messaage with payload "5/6.combinations of vowel ", sequence number "4", message type "data", at node "nodes[3]"
+** Event #75  t=90.897937252283  Network.nodes[5] (Node, id=7)  on selfmsg -2 (omnetpp::cMessage, id=185)
+
+INFO:Framing: "6.end node 5" -> "$6.end node 5$"
+INFO:Frame($6.end node 5$) Checksum: 253
+** Event #76  t=90.897937252283  Network.nodes[3] (Node, id=5)  on selfmsg -2 (omnetpp::cMessage, id=188)
+
+INFO:Framing: "5/8.in the violin family." -> "$5/8.in the violin family.$"
+INFO:Frame($5/8.in the violin family.$) Checksum: 44
+** Event #77  t=90.897937252283  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=189)
+
+INFO:Received Frame($6.end node 5$) Checksum : 253
+INFO:Received messaage with payload "6.end node 5", sequence number "5", message type "data", at node "nodes[3]"
+** Event #78  t=90.897937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=191)
+
+INFO:Received Frame($5/8.in the violin family.$) Checksum : 44
+INFO:Received messaage with payload "5/8.in the violin family.", sequence number "4", message type "data", at node "nodes[5]"
+** Event #79  t=90.997937252283  Network.nodes[3] (Node, id=5)  on selfmsg -2 (omnetpp::cMessage, id=196)
+
+INFO:Framing: "6/8.Most violins have a " -> "$6/8.Most violins have a $"
+INFO:Frame($6/8.Most violins have a $) Checksum: 184
+** Event #80  t=90.997937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=199)
+
+INFO:Received Frame($6/8.Most violins have a $) Checksum : 184
+INFO:Received messaage with payload "6/8.Most violins have a ", sequence number "5", message type "data", at node "nodes[5]"
+** Event #81  t=91.097937252283  Network.nodes[3] (Node, id=5)  on selfmsg -2 (omnetpp::cMessage, id=201)
+
+INFO:Framing: "7/8.hollow wooden body" -> "$7/8.hollow wooden body$"
+INFO:Frame($7/8.hollow wooden body$) Checksum: 212
+** Event #82  t=91.097937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=204)
+
+INFO:Received Frame($7/8.hollow wooden body$) Checksum : 212
+INFO:Received messaage with payload "7/8.hollow wooden body", sequence number "6", message type "data", at node "nodes[5]"
+** Event #83  t=91.197937252283  Network.nodes[3] (Node, id=5)  on selfmsg 0 (omnetpp::cMessage, id=192)
+
+INFO:Framing: "5/8.in the violin family." -> "$5/8.in the violin family.$"
+INFO:Frame($5/8.in the violin family.$) Checksum: 44
+INFO:Time out for frame number "0" at node "nodes[3]"
+INFO:Retransmitting message payload "5/8.in the violin family."
+** Event #84  t=91.197937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=209)
+
+INFO:Received Frame($5/8.in the violin family.$) Checksum : 44
+INFO:Received messaage with payload "5/8.in the violin family.", sequence number "0", message type "data", at node "nodes[5]"
+INFO:Delay:  with delay (0.975773) -> Send at: 92.1737
+** Event #85  t=91.297937252283  Network.nodes[3] (Node, id=5)  on selfmsg 1 (omnetpp::cMessage, id=200)
+
+INFO:Framing: "6/8.Most violins have a " -> "$6/8.Most violins have a $"
+INFO:Frame($6/8.Most violins have a $) Checksum: 184
+INFO:Time out for frame number "1" at node "nodes[3]"
+INFO:Retransmitting message payload "6/8.Most violins have a "
+** Event #86  t=91.297937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=213)
+
+INFO:Received Frame($6/8.Most violins have a $) Checksum : 184
+INFO:Received messaage with payload "6/8.Most violins have a ", sequence number "1", message type "data", at node "nodes[5]"
+** Event #87  t=91.397937252283  Network.nodes[3] (Node, id=5)  on selfmsg 2 (omnetpp::cMessage, id=205)
+
+INFO:Framing: "7/8.hollow wooden body" -> "$7/8.hollow wooden body$"
+INFO:Frame($7/8.hollow wooden body$) Checksum: 212
+INFO:Time out for frame number "2" at node "nodes[3]"
+INFO:Retransmitting message payload "7/8.hollow wooden body"
+** Event #88  t=91.397937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=217)
+
+INFO:Received Frame($7/8.hollow wooden body$) Checksum : 212
+INFO:Received messaage with payload "7/8.hollow wooden body", sequence number "2", message type "data", at node "nodes[5]"
+** Event #89  t=91.497937252283  Network.nodes[3] (Node, id=5)  on selfmsg 0 (omnetpp::cMessage, id=210)
+
+INFO:Framing: "5/8.in the violin family." -> "$5/8.in the violin family.$"
+INFO:Frame($5/8.in the violin family.$) Checksum: 44
+INFO:Time out for frame number "0" at node "nodes[3]"
+INFO:Retransmitting message payload "5/8.in the violin family."
+** Event #90  t=91.497937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=221)
+
+INFO:Received Frame($5/8.in the violin family.$) Checksum : 44
+INFO:Received messaage with payload "5/8.in the violin family.", sequence number "0", message type "data", at node "nodes[5]"
+** Event #91  t=91.597937252283  Network.nodes[3] (Node, id=5)  on selfmsg 1 (omnetpp::cMessage, id=214)
+
+INFO:Framing: "6/8.Most violins have a " -> "$6/8.Most violins have a $"
+INFO:Frame($6/8.Most violins have a $) Checksum: 184
+INFO:Time out for frame number "1" at node "nodes[3]"
+INFO:Retransmitting message payload "6/8.Most violins have a "
+** Event #92  t=91.597937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=225)
+
+INFO:Received Frame($6/8.Most violins have a $) Checksum : 184
+INFO:Received messaage with payload "6/8.Most violins have a ", sequence number "1", message type "data", at node "nodes[5]"
+** Event #93  t=91.697937252283  Network.nodes[3] (Node, id=5)  on selfmsg 2 (omnetpp::cMessage, id=218)
+
+INFO:Framing: "7/8.hollow wooden body" -> "$7/8.hollow wooden body$"
+INFO:Frame($7/8.hollow wooden body$) Checksum: 212
+INFO:Time out for frame number "2" at node "nodes[3]"
+INFO:Retransmitting message payload "7/8.hollow wooden body"
+** Event #94  t=91.697937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=229)
+
+INFO:Received Frame($7/8.hollow wooden body$) Checksum : 212
+INFO:Received messaage with payload "7/8.hollow wooden body", sequence number "2", message type "data", at node "nodes[5]"
+** Event #95  t=91.797937252283  Network.nodes[3] (Node, id=5)  on selfmsg 0 (omnetpp::cMessage, id=222)
+
+INFO:Framing: "5/8.in the violin family." -> "$5/8.in the violin family.$"
+INFO:Frame($5/8.in the violin family.$) Checksum: 44
+INFO:Duplicate: $5/8.in the violin family.$
+INFO:Time out for frame number "0" at node "nodes[3]"
+INFO:Retransmitting message payload "5/8.in the violin family."
+** Event #96  t=91.797937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=233)
+
+INFO:Received Frame($5/8.in the violin family.$) Checksum : 44
+INFO:Received messaage with payload "5/8.in the violin family.", sequence number "0", message type "data", at node "nodes[5]"
+** Event #97  t=91.797937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=234)
+
+INFO:Received Frame($5/8.in the violin family.$) Checksum : 44
+INFO:Received messaage with payload "5/8.in the violin family.", sequence number "0", message type "data", at node "nodes[5]"
+** Event #98  t=91.897937252283  Network.nodes[3] (Node, id=5)  on selfmsg 1 (omnetpp::cMessage, id=226)
+
+INFO:Framing: "6/8.Most violins have a " -> "$6/8.Most violins have a $"
+INFO:Frame($6/8.Most violins have a $) Checksum: 184
+INFO:Time out for frame number "1" at node "nodes[3]"
+INFO:Retransmitting message payload "6/8.Most violins have a "
+** Event #99  t=91.897937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=239)
+
+INFO:Received Frame($6/8.Most violins have a $) Checksum : 184
+INFO:Received messaage with payload "6/8.Most violins have a ", sequence number "1", message type "data", at node "nodes[5]"
+** Event #100  t=91.997937252283  Network.nodes[3] (Node, id=5)  on selfmsg 2 (omnetpp::cMessage, id=230)
+
+INFO:Framing: "7/8.hollow wooden body" -> "$7/8.hollow wooden body$"
+INFO:Frame($7/8.hollow wooden body$) Checksum: 212
+INFO:Delay: $7/8.hollow wooden body$ with delay (0.393601) -> Send at: 92.3915
+INFO:Time out for frame number "2" at node "nodes[3]"
+INFO:Retransmitting message payload "7/8.hollow wooden body"
+** Event #101  t=92.097937252283  Network.nodes[3] (Node, id=5)  on selfmsg 0 (omnetpp::cMessage, id=235)
+
+INFO:Framing: "5/8.in the violin family." -> "$5/8.in the violin family.$"
+INFO:Frame($5/8.in the violin family.$) Checksum: 44
+INFO:Time out for frame number "0" at node "nodes[3]"
+INFO:Retransmitting message payload "5/8.in the violin family."
+** Event #102  t=92.097937252283  Network.nodes[5] (Node, id=7)  on selfmsg -1 (omnetpp::cMessage, id=242)
+
+INFO:Time out for "ack" at node "nodes[5]"
+** Event #103  t=92.097937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=246)
+
+INFO:Received Frame($5/8.in the violin family.$) Checksum : 44
+INFO:Received messaage with payload "5/8.in the violin family.", sequence number "0", message type "data", at node "nodes[5]"
+** Event #104  t=92.097937252283  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=249)
+
+INFO:Received Frame() Checksum : 255
+INFO:Received messaage with payload "", sequence number "0", message type "ack", at node "nodes[3]"
+** Event #105  t=92.173709920225  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=212)
+
+INFO:Received Frame() Checksum : 255
+INFO:Received messaage with payload "", sequence number "0", message type "nak", at node "nodes[3]"
+** Event #106  t=92.273709920225  Network.nodes[3] (Node, id=5)  on selfmsg -2 (omnetpp::cMessage, id=252)
+
+INFO:Framing: "8/8.end node 3" -> "$8/8.end node 3$"
+INFO:Frame($8/8.end node 3$) Checksum: 150
+** Event #107  t=92.273709920225  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=253)
+
+INFO:Received Frame($8/8.end node 3$) Checksum : 150
+INFO:Received messaage with payload "8/8.end node 3", sequence number "7", message type "data", at node "nodes[5]"
+** Event #108  t=92.273709920225  Network.master (Master, id=8)  on  (omnetpp::cMessage, id=260)
+
+INFO:pair(5, 3) finished
+** Event #109  t=92.273709920225  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=261)
+
+INFO:Received Frame() Checksum : 255
+INFO:Received messaage with payload "", sequence number "0", message type "terminate", at node "nodes[3]"
+** Event #110  t=92.391537822274  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=243)
+
+INFO:Received Frame($7/8.hollow wooden body$) Checksum : 212
+INFO:Received messaage with payload "7/8.hollow wooden body", sequence number "2", message type "data", at node "nodes[5]"
+** Event #111  t=92.391537822274  Network.nodes[3] (Node, id=5)  on  (MyMessage_Base, id=262)
+
+INFO:Received Frame() Checksum : 255
+INFO:Received messaage with payload "", sequence number "0", message type "nak", at node "nodes[3]"
+** Event #112  t=120.397937252283  Network.master (Master, id=8)  on selfmsg  (omnetpp::cMessage, id=125)
+
+** Event #113  t=150.397937252283  Network.master (Master, id=8)  on selfmsg  (omnetpp::cMessage, id=263)
+
+** Event #114  t=180.397937252283  Network.master (Master, id=8)  on selfmsg  (omnetpp::cMessage, id=264)
+
+INFO:pair(5, 2) started
+** Event #115  t=180.397937252283  Network.nodes[5] (Node, id=7)  on 2 (omnetpp::cMessage, id=265)
+
+INFO:Framing: "1/6.Hello iam node 5" -> "$1/6.Hello iam node 5$"
+INFO:Frame($1/6.Hello iam node 5$) Checksum: 135
+** Event #116  t=180.397937252283  Network.nodes[2] (Node, id=4)  on  (MyMessage_Base, id=267)
+
+INFO:Received Frame($1/6.Hello iam node 5$) Checksum : 135
+INFO:Received messaage with payload "1/6.Hello iam node 5", sequence number "0", message type "data", at node "nodes[2]"
+** Event #117  t=180.497937252283  Network.nodes[5] (Node, id=7)  on selfmsg -2 (omnetpp::cMessage, id=269)
+
+INFO:Framing: "2/6.Speech is human vocal" -> "$2/6.Speech is human vocal$"
+INFO:Frame($2/6.Speech is human vocal$) Checksum: 40
+** Event #118  t=180.497937252283  Network.nodes[2] (Node, id=4)  on selfmsg -2 (omnetpp::cMessage, id=272)
+
+INFO:Framing: "1/5.Hello iam node 2" -> "$1/5.Hello iam node 2$"
+INFO:Frame($1/5.Hello iam node 2$) Checksum: 139
+INFO:Loss: $1/5.Hello iam node 2$
+** Event #119  t=180.497937252283  Network.nodes[2] (Node, id=4)  on  (MyMessage_Base, id=273)
+
+INFO:Received Frame($2/6.Speech is human vocal$) Checksum : 40
+INFO:Received messaage with payload "2/6.Speech is human vocal", sequence number "1", message type "data", at node "nodes[2]"
+** Event #120  t=180.597937252283  Network.nodes[5] (Node, id=7)  on selfmsg -2 (omnetpp::cMessage, id=275)
+
+INFO:Framing: "3/6.communication using language." -> "$3/6.communication using language.$"
+INFO:Frame($3/6.communication using language.$) Checksum: 151
+** Event #121  t=180.597937252283  Network.nodes[2] (Node, id=4)  on selfmsg -2 (omnetpp::cMessage, id=281)
+
+INFO:Framing: "2/5.Music is" -> "$2/5.Music is$"
+INFO:Frame($2/5.Music is$) Checksum: 242
+** Event #122  t=180.597937252283  Network.nodes[2] (Node, id=4)  on  (MyMessage_Base, id=282)
+
+INFO:Received Frame($3/6.communication using language.$) Checksum : 151
+INFO:Received messaage with payload "3/6.communication using language.", sequence number "2", message type "data", at node "nodes[2]"
+** Event #123  t=180.597937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=285)
+
+INFO:Received Frame($2/5.Music is$) Checksum : 242
+INFO:Received messaage with payload "2/5.Music is", sequence number "1", message type "data", at node "nodes[5]"
+** Event #124  t=180.597937252283  Network.nodes[2] (Node, id=4)  on  (MyMessage_Base, id=291)
+
+INFO:Received Frame() Checksum : 255
+INFO:Received messaage with payload "", sequence number "0", message type "nak", at node "nodes[2]"
+INFO:Framing: "1/5.Hello iam node 2" -> "$1/5.Hello iam node 2$"
+INFO:Frame($1/5.Hello iam node 2$) Checksum: 139
+INFO:Retransmitting message payload "1/5.Hello iam node 2"
+** Event #125  t=180.597937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=293)
+
+INFO:Received Frame($1/5.Hello iam node 2$) Checksum : 139
+INFO:Received messaage with payload "1/5.Hello iam node 2", sequence number "0", message type "data", at node "nodes[5]"
+** Event #126  t=180.697937252283  Network.nodes[2] (Node, id=4)  on selfmsg -2 (omnetpp::cMessage, id=295)
+
+INFO:Framing: "3/5.an art form," -> "$3/5.an art form,$"
+INFO:Frame($3/5.an art form,$) Checksum: 183
+** Event #127  t=180.697937252283  Network.nodes[5] (Node, id=7)  on selfmsg -2 (omnetpp::cMessage, id=299)
+
+INFO:Framing: "4/6.Each language uses phonetic" -> "$4/6.Each language uses phonetic$"
+INFO:Frame($4/6.Each language uses phonetic$) Checksum: 182
+** Event #128  t=180.697937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=300)
+
+INFO:Received Frame($3/5.an art form,$) Checksum : 183
+INFO:Received messaage with payload "3/5.an art form,", sequence number "2", message type "data", at node "nodes[5]"
+** Event #129  t=180.697937252283  Network.nodes[2] (Node, id=4)  on  (MyMessage_Base, id=303)
+
+INFO:Received Frame($4/6.Each language uses phonetic$) Checksum : 182
+INFO:Received messaage with payload "4/6.Each language uses phonetic", sequence number "3", message type "data", at node "nodes[2]"
+** Event #130  t=180.797937252283  Network.nodes[5] (Node, id=7)  on selfmsg -2 (omnetpp::cMessage, id=308)
+
+INFO:Framing: "5/6.combinations of vowel " -> "$5/6.combinations of vowel $"
+INFO:Frame($5/6.combinations of vowel $) Checksum: 126
+** Event #131  t=180.797937252283  Network.nodes[2] (Node, id=4)  on selfmsg -2 (omnetpp::cMessage, id=311)
+
+INFO:Framing: "4/5.and a cultural activity" -> "$4/5.and a cultural activity$"
+INFO:Frame($4/5.and a cultural activity$) Checksum: 27
+** Event #132  t=180.797937252283  Network.nodes[2] (Node, id=4)  on  (MyMessage_Base, id=312)
+
+INFO:Received Frame($5/6.combinations of vowel $) Checksum : 126
+INFO:Received messaage with payload "5/6.combinations of vowel ", sequence number "4", message type "data", at node "nodes[2]"
+** Event #133  t=180.797937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=315)
+
+INFO:Received Frame($4/5.and a cultural activity$) Checksum : 27
+INFO:Received messaage with payload "4/5.and a cultural activity", sequence number "3", message type "data", at node "nodes[5]"
+** Event #134  t=180.897937252283  Network.nodes[2] (Node, id=4)  on selfmsg -2 (omnetpp::cMessage, id=320)
+
+INFO:Framing: "5/5.end node 2 " -> "$5/5.end node 2 $"
+INFO:Frame($5/5.end node 2 $) Checksum: 125
+** Event #135  t=180.897937252283  Network.nodes[5] (Node, id=7)  on selfmsg -2 (omnetpp::cMessage, id=323)
+
+INFO:Framing: "6.end node 5" -> "$6.end node 5$"
+INFO:Frame($6.end node 5$) Checksum: 253
+** Event #136  t=180.897937252283  Network.nodes[5] (Node, id=7)  on  (MyMessage_Base, id=324)
+
+INFO:Received Frame($5/5.end node 2 $) Checksum : 125
+INFO:Received messaage with payload "5/5.end node 2 ", sequence number "4", message type "data", at node "nodes[5]"
+** Event #137  t=180.897937252283  Network.nodes[2] (Node, id=4)  on  (MyMessage_Base, id=326)
+
+INFO:Received Frame($6.end node 5$) Checksum : 253
+INFO:Received messaage with payload "6.end node 5", sequence number "5", message type "data", at node "nodes[2]"
+** Event #138  t=180.897937252283  Network.master (Master, id=8)  on  (omnetpp::cMessage, id=330)
+
+INFO:pair(5, 2) finished
+** Event #139  t=180.897937252283  Network.nodes[2] (Node, id=4)  on  (MyMessage_Base, id=331)
+
+INFO:Received Frame() Checksum : 255
+INFO:Received messaage with payload "", sequence number "0", message type "terminate", at node "nodes[2]"
+** Event #140  t=210.397937252283  Network.master (Master, id=8)  on selfmsg  (omnetpp::cMessage, id=266)
+
+** Event #141  t=240.397937252283  Network.master (Master, id=8)  on selfmsg  (omnetpp::cMessage, id=334)
+
+** Event #142  t=270.397937252283  Network.master (Master, id=8)  on selfmsg  (omnetpp::cMessage, id=335)
+
+INFO:pair(3, 2) started
+** Event #143  t=270.397937252283  Network.nodes[3] (Node, id=5)  on 2 (omnetpp::cMessage, id=336)
+
+INFO:Framing: "1/8.Hello iam node 3" -> "$1/8.Hello iam node 3$"
+INFO:Frame($1/8.Hello iam node 3$) Checksum: 135
+** Event #144  t=270.397937252283  Network.nodes[2] (Node, id=4)  on  (MyMessage_Base, id=338)
+
+INFO:Received Frame($1/8.Hello iam node 3$) Checksum : 135
+INFO:Received messaage with payload "1/8.Hello iam node 3", sequence number "0", message type "data", at node "nodes[2]"
