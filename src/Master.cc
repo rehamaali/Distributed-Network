@@ -25,6 +25,7 @@ void Master::handleMessage(cMessage *msg)
         int secondNode = nodesConnection[firstNode];
         nodesConnection[firstNode] = nodesConnection[secondNode] = -1;
         freeNodes += 2;
+        cout << "Release: " << firstNode << " " << secondNode << endl;
         delete msg;
         return;
     }
@@ -39,11 +40,10 @@ void Master::handleMessage(cMessage *msg)
             rand_src = uniform(0, gateSize("outs"));
 
         } while(nodesConnection[rand_src] != -1);
-        EV << rand_src << endl;
         do { //Avoid sending to the same node
             rand_dest = uniform(0, gateSize("outs"));
         } while((nodesConnection[rand_dest] != -1) || (rand_dest == rand_src));   // to be modified (check that both nodes are free)
-        EV << rand_dest << endl;
+        cout << "src: " << rand_src << " dst: " << rand_dest << endl;
         nodesConnection[rand_src] = rand_dest;
         nodesConnection[rand_dest] = rand_src;
         freeNodes -= 2;
