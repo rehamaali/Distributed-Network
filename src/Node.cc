@@ -3,6 +3,11 @@
 
 
 Define_Module(Node);
+/*
+ * Noise
+ * Checksum
+ * Framing (Before, After)
+ */
 
 void Node::initialize()
 {
@@ -13,7 +18,7 @@ void Node::initialize()
     inBuffer.resize(BUFCOUNT);
     frameTimer.resize(BUFCOUNT);
 
-    string fileName = "input/" + to_string(getIndex());
+    string fileName = "input/node" + to_string(getIndex()) + ".txt";
     ifstream infile(fileName);
     string msg;
     while(getline(infile, msg))
@@ -144,6 +149,7 @@ void Node::handleMessage(cMessage *msg)
                     inBuffer[recMsg->getSeqNum()%BUFCOUNT] = recMsg->getFrame();
                     while(arrived[frameExpected%BUFCOUNT])
                     {
+                        cout << "Inorder: " << getIndex() << " received " << inBuffer[frameExpected%BUFCOUNT]<< endl;
                         // TODO: Print Here for in-order receiving (in log file)
                         noNAK = 1;
                         arrived[frameExpected%BUFCOUNT] = 0;
