@@ -45,8 +45,9 @@ class Node : public cSimpleModule
     const static int MAXSEQNUM = ((1<<3)-1);
     const static int BUFCOUNT = ((MAXSEQNUM+1)>>1);
     char flag, esc;
-    int currentPeer;
     vector<string> msgsVec;
+
+    int currentPeer;
     int nxtMsgIndex;            // TODO: To be initialized.
     bool isMeFinished;          // TODO: To be initialized.
     int isSource;
@@ -72,12 +73,11 @@ class Node : public cSimpleModule
     bool getUserMsg (string& msg);
     int getCheckSum (string& msg, int sum=0);
     void addNoiseAndSend(MyMessage_Base *msg,int dest);
-    bool checkError(string& frame, int checksum);
     void init(int peer);
     void sendMessage(int msgType, int frameNum, bool startTransmission=false);
     inline void inc(int&);
     inline bool inRange(int,int,int);
-    void setTimer(Timer&, int);
+    void setTimer(int);
 };
 
 #endif
